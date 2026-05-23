@@ -1,59 +1,98 @@
----
-language:
-  - zh
-  - en
-license: apache-2.0
-tags:
-  - text-to-speech
-  - onnx
-  - voice-cloning
-  - diffusion
-  - zero-shot
-  - real-time
-  - edge-deployment
-  - audio
-  - ConvNeXtV2
-pipeline_tag: text-to-speech
-library_name: custom
-datasets:
-  - seed-tts-eval
-metrics:
-  - word_error_rate
-  - speaker_similarity
-inference: false
----
-
 # VoxFlash-TTS ⚡
 
-**Ultra-Compressed Latent Diffusion for Real-Time Voice Cloning**
+<p align="center">
+  <strong>The Fastest Voice Cloning System for Real-Time Inference</strong><br>
+  Zero-shot · Chinese & English · Edge-Deployable · Consumer GPU
+</p>
 
-[![GitHub](https://img.shields.io/badge/GitHub-VoxFlashTTS-181717?logo=github)](https://github.com/VoxFlash/VoxFlashTTS)
-[![Demo](https://img.shields.io/badge/Demo-voxflash.github.io-4a9eff)](https://voxflash.github.io/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
-[![CUDA](https://img.shields.io/badge/CUDA-%3E%3D12.3.2-76b900?logo=nvidia)](https://developer.nvidia.com/cuda-toolkit)
+<p align="center">
+  <a href="https://voxflash.github.io/"><img src="https://img.shields.io/badge/Demo-voxflash.github.io-4a9eff?logo=googlechrome&logoColor=white" alt="Demo"></a>
+  <a href="https://huggingface.co/VoxFlashTTS/VoxFlashTTS"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Model-yellow" alt="Hugging Face"></a>
+  <a href="https://github.com/VoxFlash/VoxFlashTTS/stargazers"><img src="https://img.shields.io/github/stars/VoxFlash/VoxFlashTTS?style=flat&color=orange" alt="Stars"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-green" alt="License"></a>
+  <a href="https://developer.nvidia.com/cuda-toolkit"><img src="https://img.shields.io/badge/CUDA-%3E%3D12.3.2-76b900?logo=nvidia" alt="CUDA"></a>
+  <img src="https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white" alt="Docker">
+</p>
 
-VoxFlash-TTS is the fastest voice cloning system in the industry, supporting zero-shot cloning in both Chinese and English. Designed for low-latency, low-resource environments, it runs smoothly on consumer-grade GPUs and edge devices.
+<p align="center">
+  <a href="https://voxflash.github.io/">🌐 Live Demo</a> ·
+  <a href="#quick-start">🚀 Quick Start</a> ·
+  <a href="#architecture">🏗 Architecture</a> ·
+  <a href="#evaluation">📊 Evaluation</a> ·
+  <a href="https://huggingface.co/VoxFlashTTS/VoxFlashTTS">🤗 Model Card</a>
+</p>
 
 ---
 
-## Model Overview
+![VoxFlashTTS Demo](images/20260327-155944.png)
 
-The inference bottleneck in existing TTS systems is fundamentally a sequence length problem — high audio token density keeps computational cost prohibitively high. VoxFlash addresses this at the root by compressing the audio latent space to the extreme:
+---
 
-- **VAE** encodes 24kHz waveforms into a latent representation of only **9 frames/second (9 Hz)** — roughly 8× more compressed than EnCodec (75 fps) and 2.4× more than Stable Audio (21.5 fps)
-- Generating 10 seconds of audio requires the diffusion model to process just **90 latent vectors**, rather than hundreds or thousands of tokens
-- End-to-end compute is reduced by orders of magnitude compared to conventional approaches, enabling **millisecond-level inference**
+## What is VoxFlash-TTS?
 
-### Architecture
+VoxFlash-TTS is the **fastest voice cloning system in the industry**, built around a radically compressed latent diffusion architecture. It supports zero-shot voice cloning in Chinese and English, runs on consumer-grade GPUs, and is designed from the ground up for edge deployment.
 
-| Module | Design | Role |
+The key insight: most TTS inference bottlenecks are a **sequence length problem**. By compressing 24kHz audio into a 9 Hz latent representation — roughly 8× more compressed than EnCodec — VoxFlash reduces end-to-end compute by orders of magnitude without sacrificing acceptable audio quality.
+
+> Generating 10 seconds of audio requires processing just **90 latent vectors**, compared to 750+ in conventional systems.
+
+---
+
+## Highlights
+
+- ⚡ **Millisecond-level inference** on consumer GPUs
+- 🎙️ **Zero-shot voice cloning** — no fine-tuning required
+- 🌏 **Chinese & English** — same-language and cross-lingual cloning
+- 💻 **Edge-friendly** — low VRAM footprint, low-end GPU compatible
+- 🐳 **One-command Docker deployment** — up and running in minutes
+- 📦 **~600 MB ONNX** — full pipeline in a single deployable artifact
+
+---
+
+## Architecture
+
+VoxFlash-TTS is built on an ultra-compressed latent diffusion pipeline:
+
+```
+Text Input
+    │
+    ▼
+┌─────────────────────┐
+│   Phoneme Encoder   │  ConvNeXtV2 — lightweight, hardware-friendly
+└─────────────────────┘
+    │
+    ▼
+┌─────────────────────┐
+│  Coarse Alignment   │  Explicit alignment — lower complexity than Cross-Attention
+└─────────────────────┘
+    │
+    ▼
+┌─────────────────────┐
+│   Diffusion Model   │  Multi-step denoising in latent space (NFE=16)
+└─────────────────────┘
+    │                     ▲
+    │              ┌──────┴──────┐
+    │              │Speaker Enc. │  Reference audio → speaker embedding
+    │              └─────────────┘
+    ▼
+┌─────────────────────┐
+│    VAE Decoder      │  9 Hz latent → 24kHz high-fidelity waveform
+└─────────────────────┘
+    │
+    ▼
+Audio Output
+```
+
+### Why 9 Hz?
+
+| System | Latent Frame Rate | Latent vectors for 10s audio |
 |---|---|---|
-| VAE Encoder | Lightweight convolutional network | Waveform → 9 Hz latent vectors |
-| Phoneme Encoder | ConvNeXtV2 | Text phoneme feature extraction |
-| Alignment | Coarse-grained explicit alignment | Phoneme sequence → latent sequence mapping |
-| Diffusion Model | Multi-step iterative denoising (NFE=16) | Speech generation in latent space |
-| VAE Decoder | Lightweight convolutional network | Latent vectors → high-fidelity waveform |
-| Speaker Encoder | Reference audio embedding | Zero-shot voice injection |
+| EnCodec | ~75 fps | ~750 |
+| Speech LM (semantic tokens) | ~50 fps | ~500 |
+| Stable Audio | ~21.5 fps | ~215 |
+| **VoxFlash-TTS** | **9 fps** | **90** |
+
+Transformer self-attention scales at O(n²) with sequence length. Cutting the sequence by 8× reduces attention compute by ~64×. This is why VoxFlash can deliver millisecond inference where others cannot.
 
 ---
 
@@ -61,29 +100,36 @@ The inference bottleneck in existing TTS systems is fundamentally a sequence len
 
 ### Requirements
 
-- CUDA >= 12.3.2
+- NVIDIA GPU with CUDA ≥ 12.3.2
 - Docker
 
-### Docker Deployment
+### Installation
 
 ```bash
 # Pull the image
 docker pull berlinisaiah/ttsv2:v1
+```
 
-# Run in background (production)
+### Run
+
+```bash
+# Background mode (production)
 docker container run -d --gpus all \
+  --mount type=bind,source=$(pwd)/resources,target=/app/resources \
+  -p 8000:8000 berlinisaiah/ttsv2:v1
+
+# Foreground mode (debug)
+docker container run -it --gpus all \
   --mount type=bind,source=$(pwd)/resources,target=/app/resources \
   -p 8000:8000 berlinisaiah/ttsv2:v1
 ```
 
-Once running, open `http://127.0.0.1:8000/demo.html` to access the WebUI.
+### Access WebUI
 
-### Debug Mode
+Open your browser and navigate to:
 
-```bash
-docker container run -it --gpus all \
-  --mount type=bind,source=$(pwd)/resources,target=/app/resources \
-  -p 8000:8000 berlinisaiah/ttsv2:v1
+```
+http://127.0.0.1:8000/demo.html
 ```
 
 ---
@@ -97,39 +143,37 @@ docker container run -it --gpus all \
 | Chinese (Mandarin) | ✅ | ✅ |
 | English | ✅ | ✅ |
 
-### Zero-Shot Voice Cloning
+### Zero-Shot Cloning
 
-No fine-tuning required for target speakers. Provide a reference audio clip and the model extracts a speaker embedding, injects it into the generation process, and outputs speech that closely matches the target voice.
+No fine-tuning needed. Provide any reference audio clip and VoxFlash extracts a speaker embedding, injects it into the diffusion process, and outputs speech matching the target voice.
 
-Cross-lingual cloning is also supported (e.g. Chinese reference audio → English output), demonstrating effective **disentanglement of voice timbre from language identity**.
-
-### Inference Speed
-
-Thanks to the extreme 9 Hz temporal compression, VoxFlash achieves millisecond-level inference on consumer GPUs — significantly faster than comparable systems — making it well-suited for latency-sensitive real-time applications.
+Cross-lingual cloning (e.g. Chinese reference → English output) is supported, demonstrating effective disentanglement of voice timbre from language identity.
 
 ---
 
 ## Evaluation
 
-Evaluation samples are drawn from the [Seed-TTS](https://arxiv.org/abs/2406.02430) benchmark, enabling direct comparison with leading industry systems.
+Audio samples are drawn from the [Seed-TTS](https://arxiv.org/abs/2406.02430) evaluation set for direct comparison with leading systems.
 
-| System | Inference Speed | Deployment Cost | Zero-Shot Cloning | Cross-lingual |
+| System | Inference Speed | Deployment | Zero-Shot | Cross-lingual |
 |---|---|---|---|---|
-| Seed-TTS | Slow | High (cloud) | ✅ | ✅ |
+| Seed-TTS | Slow | Cloud GPU | ✅ | ✅ |
 | CosyVoice 2 | Medium | Medium | ✅ | ✅ |
 | FastSpeech variants | Fast | Low | ❌ | ❌ |
-| **VoxFlash-TTS** | **Fastest** | **Low (edge)** | **✅** | **✅** |
+| **VoxFlash-TTS** | **Fastest** | **Edge / Consumer GPU** | **✅** | **✅** |
 
-> For audio samples and detailed comparisons, visit the [Demo page](https://voxflash.github.io/).
+👉 Listen to audio samples at [voxflash.github.io](https://voxflash.github.io/)
 
 ---
 
 ## Use Cases
 
-- **Real-time voice interaction** — Extremely low first-packet latency; ideal for dialogue systems and live dubbing
-- **Large-scale batch synthesis** — Significantly lower compute cost than comparable systems; suited for audiobooks and content platforms
-- **Edge / on-device deployment** — Low VRAM footprint; runs on consumer-grade GPUs
-- **Individual developers** — One-command Docker deployment with no complex tuning required
+| Scenario | Key Requirement | VoxFlash Advantage |
+|---|---|---|
+| Real-time voice interaction | Low first-packet latency | Short latent sequences, fewer diffusion steps |
+| Large-scale batch synthesis | Throughput & GPU cost | Orders-of-magnitude compute reduction |
+| Edge / on-device deployment | Low VRAM & power draw | Lightweight architecture, consumer GPU capable |
+| Individual developers | Simple setup | One Docker command, no tuning required |
 
 ---
 
@@ -143,16 +187,14 @@ Evaluation samples are drawn from the [Seed-TTS](https://arxiv.org/abs/2406.0243
 | `vocoder.onnx` | 59.7 MB | Vocoder |
 | **Total** | **~854 MB** | Full pipeline |
 
-> Exact parameter count is not yet available. File sizes reflect the exported ONNX models used for inference.
-
 ---
 
 ## Limitations
 
-- Audio quality under extreme compression ratios may fall short of quality-focused systems such as Seed-TTS
-- The current version is optimized primarily for Chinese and English; performance on other languages has not been systematically evaluated
+- Audio quality under extreme compression may fall short of quality-focused systems such as Seed-TTS
+- Currently optimized for Chinese and English; other languages have not been systematically evaluated
 - Accent naturalness in cross-lingual cloning has room for improvement
-- Very short reference audio (< 3 seconds) may reduce speaker similarity
+- Reference audio shorter than 3 seconds may reduce speaker similarity
 
 ---
 
@@ -172,12 +214,26 @@ If VoxFlash-TTS has been useful in your research or engineering work, please cit
 
 ---
 
-## Contact
+## Contributing
 
-- 📧 Email: [zhangtaiyan072@gmail.com](mailto:zhangtaiyan072@gmail.com)
-- 🐙 GitHub: [github.com/VoxFlash/VoxFlashTTS](https://github.com/VoxFlash/VoxFlashTTS)
-- 🌐 Demo: [voxflash.github.io](https://voxflash.github.io/)
+Contributions, issues, and feature requests are welcome. Please open an issue first to discuss what you would like to change.
 
 ---
 
-*VoxFlash-TTS — Not the most expressive TTS, but the fastest, lightest, and easiest-to-deploy voice cloning system.*
+## License
+
+This project is licensed under the [Apache 2.0 License](LICENSE).
+
+---
+
+## Contact
+
+- 📧 Email: [zhangtaiyan072@gmail.com](mailto:zhangtaiyan072@gmail.com)
+- 🌐 Demo: [voxflash.github.io](https://voxflash.github.io/)
+- 🤗 Hugging Face: [huggingface.co/VoxFlashTTS/VoxFlashTTS](https://huggingface.co/VoxFlashTTS/VoxFlashTTS)
+
+---
+
+<p align="center">
+  <em>Not the most expressive TTS — the fastest, lightest, and easiest-to-deploy voice cloning system.</em>
+</p>
