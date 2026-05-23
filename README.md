@@ -24,7 +24,7 @@
 
 ---
 
-![VoxFlashTTS Demo](images/20260327-155944.png)
+![VoxFlash Banner](images/voxflash_banner.png)
 
 ---
 
