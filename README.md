@@ -19,7 +19,7 @@
   <a href="#quick-start">🚀 Quick Start</a> ·
   <a href="#architecture">🏗 Architecture</a> ·
   <a href="#evaluation">📊 Evaluation</a> ·
-  <a href="https://huggingface.co/VoxFlash/VoxFlash-TTS">🤗 Model Card</a>
+  <a href="https://huggingface.co/VoxFlashTTS/VoxFlashTTS">🤗 Model Card</a>
 </p>
 
 ---
