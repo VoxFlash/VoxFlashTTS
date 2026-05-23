@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://voxflash.github.io/"><img src="https://img.shields.io/badge/Demo-voxflash.github.io-4a9eff?logo=googlechrome&logoColor=white" alt="Demo"></a>
-  <a href="https://huggingface.co/VoxFlash/VoxFlash-TTS"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Model-yellow" alt="Hugging Face"></a>
+  <a href="https://huggingface.co/VoxFlashTTS/VoxFlashTTS"><img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Model-yellow" alt="Hugging Face"></a>
   <a href="https://github.com/VoxFlash/VoxFlashTTS/stargazers"><img src="https://img.shields.io/github/stars/VoxFlash/VoxFlashTTS?style=flat&color=orange" alt="Stars"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-green" alt="License"></a>
   <a href="https://developer.nvidia.com/cuda-toolkit"><img src="https://img.shields.io/badge/CUDA-%3E%3D12.3.2-76b900?logo=nvidia" alt="CUDA"></a>
@@ -226,7 +226,7 @@ This project is licensed under the [Apache 2.0 License](LICENSE).
 
 - 📧 Email: [zhangtaiyan072@gmail.com](mailto:zhangtaiyan072@gmail.com)
 - 🌐 Demo: [voxflash.github.io](https://voxflash.github.io/)
-- 🤗 Hugging Face: [huggingface.co/VoxFlash/VoxFlash-TTS](https://huggingface.co/VoxFlash/VoxFlash-TTS)
+- 🤗 Hugging Face: [huggingface.co/VoxFlashTTS/VoxFlashTTS](https://huggingface.co/VoxFlashTTS/VoxFlashTTS)
 
 ---
 
