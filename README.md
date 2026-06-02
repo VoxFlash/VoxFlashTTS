@@ -26,6 +26,10 @@
 
 ![VoxFlash Banner](images/voxflash_banner.png)
 
+<p align="center">
+  <strong>English</strong> · <a href="README_zh.md">中文</a>
+</p>
+
 ---
 
 ## What is VoxFlash-TTS?
@@ -231,6 +235,20 @@ This project is licensed under the [Apache 2.0 License](LICENSE).
 - 📧 Email: [zhangtaiyan072@gmail.com](mailto:zhangtaiyan072@gmail.com)
 - 🌐 Demo: [voxflash.github.io](https://voxflash.github.io/)
 - 🤗 Hugging Face: [huggingface.co/VoxFlashTTS/VoxFlashTTS](https://huggingface.co/VoxFlashTTS/VoxFlashTTS)
+
+---
+
+## WeChat Community
+
+Scan the QR code below to join the **VoxFlash-TTS Voice Cloning Group** on WeChat:
+
+<p align="center">
+  <img src="images/wechat_qr.jpeg" alt="VoxFlash-TTS WeChat Group QR Code" width="300"/>
+</p>
+
+<p align="center">
+  <em>QR code valid for 7 days. Please re-enter the group if it expires.</em>
+</p>
 
 ---
 
