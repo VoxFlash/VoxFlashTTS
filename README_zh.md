@@ -120,12 +120,12 @@ docker pull berlinisaiah/ttsv2:v1
 # 后台模式（生产环境）
 docker container run -d --gpus all \
   --mount type=bind,source=$(pwd)/resources,target=/app/resources \
-  -p 8000:8000 berlinisaiah/ttsv2:v1
+  -p 8000:8000 berlinisaiah/ttsv2:v3
 
 # 前台模式（调试）
 docker container run -it --gpus all \
   --mount type=bind,source=$(pwd)/resources,target=/app/resources \
-  -p 8000:8000 berlinisaiah/ttsv2:v1
+  -p 8000:8000 berlinisaiah/ttsv2:v3
 ```
 
 ### 访问 WebUI
