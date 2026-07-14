@@ -111,7 +111,7 @@ Transformer 自注意力的计算复杂度随序列长度呈 O(n²) 增长。序
 
 ```bash
 # 拉取镜像
-docker pull berlinisaiah/ttsv2:v1
+docker pull berlinisaiah/ttsv2:v3
 ```
 
 ### 运行
