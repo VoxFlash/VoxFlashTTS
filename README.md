@@ -100,6 +100,12 @@ Transformer self-attention scales at O(n²) with sequence length. Cutting the se
 
 ---
 
+## Changelog
+
+- **2026-07-14**: Weights updated. See [huggingface.co/VoxFlashTTS/VoxFlashTTS](https://huggingface.co/VoxFlashTTS/VoxFlashTTS)
+
+---
+
 ## Quick Start
 
 ### Requirements
