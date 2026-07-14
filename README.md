@@ -111,7 +111,7 @@ Transformer self-attention scales at O(n²) with sequence length. Cutting the se
 
 ```bash
 # Pull the image
-docker pull berlinisaiah/ttsv2:v1
+docker pull berlinisaiah/ttsv2:v3
 ```
 
 ### Run
