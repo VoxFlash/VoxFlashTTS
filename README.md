@@ -117,7 +117,7 @@ Transformer self-attention scales at O(n²) with sequence length. Cutting the se
 
 ```bash
 # Pull the image
-docker pull berlinisaiah/ttsv2:v3
+docker pull berlinisaiah/ttsv2:v7
 ```
 
 ### Run
@@ -126,12 +126,12 @@ docker pull berlinisaiah/ttsv2:v3
 # Background mode (production)
 docker container run -d --gpus all \
   --mount type=bind,source=$(pwd)/resources,target=/app/resources \
-  -p 8000:8000 berlinisaiah/ttsv2:v3
+  -p 8000:8000 berlinisaiah/ttsv2:v7
 
 # Foreground mode (debug)
 docker container run -it --gpus all \
   --mount type=bind,source=$(pwd)/resources,target=/app/resources \
-  -p 8000:8000 berlinisaiah/ttsv2:v3
+  -p 8000:8000 berlinisaiah/ttsv2:v7
 ```
 
 ### Access WebUI
