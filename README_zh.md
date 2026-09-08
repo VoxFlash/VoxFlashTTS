@@ -102,6 +102,8 @@ Transformer 自注意力的计算复杂度随序列长度呈 O(n²) 增长。序
 
 ## 更新日志
 
+- **2026-09-08**:权重文件已更新,详见 [huggingface.co/VoxFlashTTS/VoxFlashTTS](https://huggingface.co/VoxFlashTTS/VoxFlashTTS)
+
 - **2026-07-14**:权重文件已更新,详见 [huggingface.co/VoxFlashTTS/VoxFlashTTS](https://huggingface.co/VoxFlashTTS/VoxFlashTTS)
 
 ---
