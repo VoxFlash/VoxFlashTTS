@@ -251,7 +251,9 @@ http://127.0.0.1:8000/demo.html
 扫描下方二维码加入 **VoxFlash-TTS 语音克隆群**，与更多开发者交流探讨：
 
 <p align="center">
-  <img src="images/wechat_qr.jpeg" alt="VoxFlash-TTS 微信群二维码" width="300"/>
+  <!-- <img src="images/wechat_qr.jpeg" alt="VoxFlash-TTS 微信群二维码" width="300"/> -->
+
+  <img src="https://cdn.jsdelivr.net/gh/VoxFlash/VoxFlashTTS@main/images/wechat_qr.jpeg" alt="VoxFlash-TTS 微信群二维码" width="300"/>
 </p>
 
 <p align="center">
