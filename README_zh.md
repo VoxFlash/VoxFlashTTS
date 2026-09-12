@@ -119,7 +119,7 @@ Transformer 自注意力的计算复杂度随序列长度呈 O(n²) 增长。序
 
 ```bash
 # 拉取镜像
-docker pull berlinisaiah/ttsv2:v7
+docker pull berlinisaiah/ttsv2:v8
 ```
 
 ### 运行
@@ -128,12 +128,12 @@ docker pull berlinisaiah/ttsv2:v7
 # 后台模式（生产环境）
 docker container run -d --gpus all \
   --mount type=bind,source=$(pwd)/resources,target=/app/resources \
-  -p 8000:8000 berlinisaiah/ttsv2:v7
+  -p 8000:8000 berlinisaiah/ttsv2:v8
 
 # 前台模式（调试）
 docker container run -it --gpus all \
   --mount type=bind,source=$(pwd)/resources,target=/app/resources \
-  -p 8000:8000 berlinisaiah/ttsv2:v7
+  -p 8000:8000 berlinisaiah/ttsv2:v8
 ```
 
 ### 访问 WebUI
