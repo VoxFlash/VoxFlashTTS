@@ -253,7 +253,7 @@ Scan the QR code below to join the **VoxFlash-TTS Voice Cloning Group** on WeCha
 <p align="center">
   <!-- <img src="images/wechat_qr.jpeg" alt="VoxFlash-TTS WeChat Group QR Code" width="300"/> -->
 
-  <img src="https://cdn.jsdelivr.net/gh/VoxFlash/VoxFlashTTS@89fb8b5/images/wechat_qr.jpeg" alt="VoxFlash-TTS WeChat Group QR Code" width="300"/>
+  <img src="https://cdn.jsdelivr.net/gh/VoxFlash/VoxFlashTTS@2013827/images/wechat_qr.jpeg" alt="VoxFlash-TTS WeChat Group QR Code" width="300"/>
 </p>
 
 <p align="center">
