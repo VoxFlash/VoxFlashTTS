@@ -253,7 +253,7 @@ http://127.0.0.1:8000/demo.html
 <p align="center">
   <!-- <img src="images/wechat_qr.jpeg" alt="VoxFlash-TTS 微信群二维码" width="300"/> -->
 
-  <img src="https://cdn.jsdelivr.net/gh/VoxFlash/VoxFlashTTS@9fd22e0/images/wechat_qr.jpeg" alt="VoxFlash-TTS 微信群二维码" width="300"/>
+  <img src="https://cdn.jsdelivr.net/gh/VoxFlash/VoxFlashTTS@a249c2a/images/wechat_qr.jpeg" alt="VoxFlash-TTS 微信群二维码" width="300"/>
 </p>
 
 <p align="center">
